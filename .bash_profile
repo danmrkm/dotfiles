@@ -39,7 +39,7 @@ alias emacs='emacs_singlerun'
 #alias emacs='emacs -q -l ~/.emacs.d/init_cmd.el'
 alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'
-export EDITOR='/usr/local/bin/emacs'
+export EDITOR='/usr/bin/emacs'
 alias sublime='open -a Sublime\ Text'
 alias python='/usr/local/bin/python3'
 
