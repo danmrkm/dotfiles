@@ -3,7 +3,7 @@
 # GPG key
 UNAME='danmrkm'
 EMAIL='38092962+danmrkm@users.noreply.github.com'
-GPGKEY='AF6A9DFED164765C'
+GPGKEY='99AE6990CDCCD5FA'
 EDITOR='emacs'
 
 #Check gpg
@@ -14,9 +14,9 @@ then
 fi
 
 #Check gpg-agent pinentry-mac
-if [ ! -e /usr/local/bin/gpg-agent ] || [ ! -e /usr/local/bin/prientry-mac ]
+if [ ! -e /usr/local/bin/gpg-agent ] || [ ! -e /usr/local/bin/pinentry-mac ]
 then
-    echo 'gpg-agent or prientry-mac not installed. Run "brew install gpg-agent prientry-mac"'
+    echo 'gpg-agent or prientry-mac not installed. Run "brew install gpg-agent pinentry-mac"'
     exit
 fi
 
@@ -27,6 +27,7 @@ then
     echo 'ex) '
     echo 'use-standard-socket'
     echo 'pinentry-program /usr/local/bin/pinentry-mac'
+    exit
 fi
 
 echo 'This script gives git config for GitHub account.'
