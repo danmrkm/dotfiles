@@ -302,6 +302,9 @@
     (global-set-key (kbd "C-x C-b") 'helm-mini)
     ;; C-x C-fをhelm-find-filesに割り当て
     (global-set-key (kbd "C-x C-f") 'helm-find-files)
+    ;; C-x eをhelm-recentfに割り当て
+    (global-set-key (kbd "C-x e") 'helm-recentf)
+    
     ;; タブとhel-execute-persistent-actionを入れ替える
     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
     )
@@ -348,13 +351,20 @@
     ;; gtagsを利用する場合は事前に下記のコマンドでgtagsをインストールしておくこと
     ;; $ brew install global --with-exuberant-ctags --with-pygments
 
-    ;; (custom-set-variables
-    ;;  ;; gtagsのキーバインドを有効化
-    ;;  '(helm-gtags-suggested-key-mapping t)
-    ;;  ;; ファイル保存時に自動的にタグをアップデートする
-    ;;  '(helm-gtags-auto-update t)
-    ;;  )
-    ;; )
+    (custom-set-variables
+     ;; gtagsのキーバインドを有効化
+     '(helm-gtags-suggested-key-mapping t)
+     ;; ファイル保存時に自動的にタグをアップデートする
+     '(helm-gtags-auto-update t)
+     )
+
+    ;; helm-gtags キーバインド
+    (add-hook 'helm-gtags-mode-hook
+	      '(lambda ()
+		 (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+		 (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+		 (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+		 (local-set-key (kbd "C-t") 'helm-gtags-pop-stack)))
   
     )
   )
