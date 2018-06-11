@@ -1,0 +1,10 @@
+# Emacs の自動バックアップファイルを除外
+\#*#
+
+# Finder の構成ファイルを除外
+.DS_Store
+
+# .emacs.d の backup ディレクトリを除外
+.emacs.d/backup
+
+
