@@ -18,6 +18,9 @@
   ;; package.elを指定
   (require 'package)
 
+  ;;melpa stableを追加
+  ;;  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" "https://stable.melpa.org/packages/") t)
   
   ;;パッケージを初期化
   (package-initialize)
@@ -153,9 +156,10 @@
       (setq ns-pop-up-frames nil)
       
       )
+
     ;; ウィンドウ左に列数を表示
     (global-linum-mode t)
-
+    
     ;; タイトルバーにファイルのフルパスを表示
     (setq frame-title-format "%f")
     (tool-bar-mode -1)
@@ -176,20 +180,6 @@
     ;; ediffコントロールパネルを別フレームにしない
     (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-    ;; C-x wでバッファを入れ替える関数
-    (defun swap-screen()
-      "Swap two screen,leaving cursor at current window."
-      (interactive)
-      (let ((thiswin (selected-window))
-	    (nextbuf (window-buffer (next-window))))
-	(set-window-buffer (next-window) (window-buffer))
-	(set-window-buffer thiswin nextbuf)))
-
-    ;; C-x wでバッファを入れ替える
-    (define-key global-map (kbd "C-x w") 'swap-screen)
-
-    ;; Emacs終了時に本当に終了してよいか確認する
-    (setq confirm-kill-emacs 'y-or-n-p)
     
     )
   
@@ -302,9 +292,6 @@
     (global-set-key (kbd "C-x C-b") 'helm-mini)
     ;; C-x C-fをhelm-find-filesに割り当て
     (global-set-key (kbd "C-x C-f") 'helm-find-files)
-    ;; C-x eをhelm-recentfに割り当て
-    (global-set-key (kbd "C-x e") 'helm-recentf)
-    
     ;; タブとhel-execute-persistent-actionを入れ替える
     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
     )
@@ -318,32 +305,6 @@
     ;; C-x tでmulti-termを起動
     (define-key global-map (kbd "C-x t") 'multi-term)
     (define-key global-map (kbd "C-x p") 'multi-term-prev)
-
-    ;; multi-term 上で用いるemacsコマンド
-    (custom-set-variables
-     '(term-bind-key-alist
-       (quote
-	(("C-c C-c" . term-interrupt-subjob)
-	 ("C-c C-e" . term-send-esc)
-	 ("C-s" . isearch-forward)
-	 ("C-m" . term-send-return)
-	 ("C-y" . term-paste)
-	 ("M-f" . term-send-forward-word)
-	 ("M-b" . term-send-backward-word)
-	 ("M-o" . term-send-backspace)
-	 ("M-p" . term-send-up)
-	 ("M-n" . term-send-down)
-	 ("M-M" . term-send-forward-kill-word)
-	 ("M-N" . term-send-backward-kill-word)
-	 ("M-r" . term-send-reverse-search-history)
-	 ("M-," . term-send-raw)
-	 ("M-." . comint-dynamic-complete)
-	 )
-	)
-       )
-     )
-
-    
     )
   
   ;; gtags +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -357,13 +318,23 @@
     ;;  ;; ファイル保存時に自動的にタグをアップデートする
     ;;  '(helm-gtags-auto-update t)
     ;;  )
-
-    ;; helm-gtags キーバインド
-    (global-set-key (kbd "M-t") 'helm-gtags-find-tag)
-    (global-set-key (kbd "M-r") 'helm-gtags-find-rtag)
-    (global-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-    (global-set-key (kbd "C-t") 'helm-gtags-pop-stack))
-
+    ;; )
+  
+    )
   )
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (web-mode quickrun py-autopep8 pos-tip popwin multi-term magit jedi helm-gtags git-gutter fuzzy flycheck elscreen ac-php))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
