@@ -28,6 +28,9 @@
       ;; for auto-complete
       auto-complete fuzzy popup
 
+		    ;; csv mode
+		    csv-mode
+		    
 		    ;; buffer utils
 		    popwin elscreen
 
