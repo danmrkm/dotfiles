@@ -10,7 +10,7 @@
 ;;; Code:
 
 ;; GNU Emacs 24 以降のみに適用
-(when (> emacs-major-version 24)
+(when (>= emacs-major-version 24)
 
   ;; GC発動のメモリ閾値を80MBに変更
   (setq gc-cons-threshold (* gc-cons-threshold 100))
@@ -18,6 +18,9 @@
   ;; package.elを指定
   (require 'package)
 
+  ;;melpa stableを追加
+  ;;  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" "https://stable.melpa.org/packages/") t)
   
   ;;パッケージを初期化
   (package-initialize)
