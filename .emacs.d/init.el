@@ -116,15 +116,11 @@
 
 ;; paren-mode：対応する括弧を強調して表示する
 ;; 表示までの秒数。初期値は0.125
-(setq show-paren-delay 0)
+(setq show-paren-delay 0.02)
 ;; 有効化
 (show-paren-mode t)
-;; parenのスタイル: expressionは括弧内も強調表示
-(setq show-paren-style 'expression)
-;; フェイスを変更する
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "darkgreen")
-
+;; parenのスタイル: mixedは括弧内も強調表示
+(setq show-paren-style 'mixed)
 
 ;; 環境変数設定
 (add-to-list 'exec-path "/usr/local/bin")
@@ -162,6 +158,9 @@
     ;; ウィンドウ左に列数を表示
     (global-linum-mode t)
 
+    ;; Themeをmanoj-darkに設定
+    (load-theme 'manoj-dark t)
+    
     ;; タイトルバーにファイルのフルパスを表示
     (setq frame-title-format "%f")
     (tool-bar-mode -1)
@@ -178,6 +177,12 @@
     ;; 		      )
     ;; 		default-frame-alist))
 
+    ;; Paren-mode
+    ;; フェイスを変更する
+    (set-face-attribute 'show-paren-match-face nil
+			:background nil :foreground nil
+			:underline "#a9a9a9")
+    
     ;; ediff
     ;; ediffコントロールパネルを別フレームにしない
     (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -223,12 +228,12 @@
 				))
 
     ;; php-modeのインデント設定
-    (defun php-indent-hook ()
-      (setq indent-tabs-mode nil)
-      (setq c-basic-offset 4)
-      (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
-      (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
-    (add-hook 'php-mode-hook 'php-indent-hook)
+    ;; (defun php-indent-hook ()
+    ;;   (setq indent-tabs-mode nil)
+    ;;   (setq c-basic-offset 4)
+    ;;   (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
+    ;;   (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
+    ;; (add-hook 'php-mode-hook 'php-indent-hook)
 
     )
 
