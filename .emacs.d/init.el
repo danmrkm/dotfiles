@@ -19,8 +19,8 @@
   (require 'package)
 
   ;;melpa stableを追加
-  ;;  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "melpa-stable" "https://stable.melpa.org/packages/") t)
+   (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+  ;; (add-to-list 'package-archives (cons "melpa-stable" "https://stable.melpa.org/packages/") t)
   
   ;;パッケージを初期化
   (package-initialize)
@@ -60,6 +60,9 @@
 
 		    ;; multi-term
 		    multi-term
+
+		    ;; madhat2r
+		    madhat2r-theme
 		    
 		    ))
 
@@ -158,8 +161,10 @@
     ;; ウィンドウ左に列数を表示
     (global-linum-mode t)
 
-    ;; Themeをmanoj-darkに設定
-    (load-theme 'manoj-dark t)
+    ;; Themeをmadhat2rに設定
+    (load-theme 'madhat2r t)
+    ;; (load-theme 'manoj-dark t)
+    ;; (load-theme 'dark-laptop t)
     
     ;; タイトルバーにファイルのフルパスを表示
     (setq frame-title-format "%f")
