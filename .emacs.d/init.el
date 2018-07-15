@@ -55,8 +55,6 @@
 		    ;; web
 		    web-mode
 		    
-		    ;; git (ver25以上のみインストール)
-		    magit git-gutter
 
 		    ;; multi-term
 		    multi-term
@@ -65,6 +63,13 @@
 		    madhat2r-theme
 		    
 		    ))
+
+  (defvar install-package-list-ver25
+    '(
+      ;; git (ver25以上のみインストール)
+      magit git-gutter
+	    ))
+      
 
   ;; パッケージ情報更新フラグ設定
   (defvar package-refresh-flag t)
@@ -79,16 +84,20 @@
 	(setq package-refresh-flag nil)
 	)
 
-      (when (= package `magit)
-	(when (< emacs-major-version 25)
-	  go continue01
+      (package-install package)))
+  
+  ;; インストールされていないパッケージをインストールする(バージョン25以上)
+  (when (> emacs-major-version 25)
+    (dolist (package install-package-list-ver25)
+
+      (unless (package-installed-p package)
+	;; 初回のみパッケージ情報の更新
+	(when '(package-refresh-flag)
+	  (package-refresh-contents)
+	  (setq package-refresh-flag nil)
 	  )
-	)
-      (package-install package))
-    
-    continue01
-    )
-    
+
+	(package-install package)))
 
   ;; package-desc-versをpackage--ac-desc-versionに変換(一部パッケージのエラー防止)
   (fset 'package-desc-vers 'package--ac-desc-version)
