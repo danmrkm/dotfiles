@@ -36,6 +36,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 alias ls='ls -G'
 alias ssh-copy-id='~/scripts/ssh-copy-id'
 alias emacs='emacs_singlerun'
+alias plainpb='pbpaste|cat|pbcopy'
 #alias emacs='emacs -q -l ~/.emacs.d/init_cmd.el'
 alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'

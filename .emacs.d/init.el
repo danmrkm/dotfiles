@@ -134,6 +134,8 @@
 ;; "M-p"で5行上に移動する
 (define-key global-map (kbd "M-p") (kbd "C-u 5 C-p"))
 
+;; "C-c rで全置換"
+(define-key global-map (kbd "C-c r") 'replace-string)
 
 ;; paren-mode：対応する括弧を強調して表示する
 ;; 表示までの秒数。初期値は0.125
