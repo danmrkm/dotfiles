@@ -97,7 +97,7 @@
 	  (setq package-refresh-flag nil)
 	  )
 
-	(package-install package)))
+	(package-install package))))
 
   ;; package-desc-versをpackage--ac-desc-versionに変換(一部パッケージのエラー防止)
   (fset 'package-desc-vers 'package--ac-desc-version)
