@@ -84,10 +84,10 @@
 	  go continue01
 	  )
 	)
-      (package-install package)
-      continue01
-      
-      ))
+      (package-install package))
+    
+    continue01
+    )
     
 
   ;; package-desc-versをpackage--ac-desc-versionに変換(一部パッケージのエラー防止)
