@@ -55,7 +55,7 @@
 		    ;; web
 		    web-mode
 		    
-		    ;; git
+		    ;; git (ver25以上のみインストール)
 		    magit git-gutter
 
 		    ;; multi-term
@@ -78,8 +78,17 @@
 	(package-refresh-contents)
 	(setq package-refresh-flag nil)
 	)
+
+      (when (= package `magit)
+	(when (< emacs-major-version 25)
+	  go continue01
+	  )
+	)
+      (package-install package)
+      continue01
       
-      (package-install package)))
+      ))
+    
 
   ;; package-desc-versをpackage--ac-desc-versionに変換(一部パッケージのエラー防止)
   (fset 'package-desc-vers 'package--ac-desc-version)
