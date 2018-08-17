@@ -48,6 +48,7 @@ git config --local core.editor ${EDITOR}
 git config --local gpg.program /usr/local/bin/gpg
 git config --local user.signingkey ${GPGSIG}
 git config --local commit.gpgsign true
+git config --local alias.graph "log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short"
 
 echo '### Show result local config list. ###'
 git config --local -l

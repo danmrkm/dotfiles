@@ -17,23 +17,23 @@ while getopts edi:o:k:h OPT
 do
     case ${OPT} in
 	# 暗号化モード
-        e)
+	e)
 	    if [ "${MODE}" = "decrypt" ]
 	    then
 		echo 'Already specified [-d] option.'
 		show_usage
 	    fi
 	    MODE="encrypt"
-            ;;
+	    ;;
 	# 復号化モード
-        d)
+	d)
 	    if [ "${MODE}" = "encrypt" ]
 	    then
 		echo 'Already specified [-e] option.'
 		show_usage
 	    fi
 	    MODE="decrypt"
-            ;;
+	    ;;
 	# 暗号 or 復号元のファイルパス
 	i)
 	    INPUT_FILE=${OPTARG}
@@ -43,19 +43,18 @@ do
 	o)
 	    OUTPUT_FILE="$OPTARG"
 	    ;;
-	
 	# 暗号 or 復号に用いる鍵ファイルパス
-        k)
+	k)
 	    KEY_FILE="$OPTARG"
 	    ;;
 	# ヘルプ
 	h)
 	    show_usage
-            ;;
+	    ;;
 	# その他
-        \?)
+	\?)
 	    show_usage
-            ;;
+	    ;;
     esac
     NUMOPT=`expr ${NUMOPT} + 1`
 done
@@ -71,7 +70,7 @@ then
 fi
 
 # ファイル存在チェック
-if [ ! -e ${INPUT_FILE} ]    
+if [ ! -e ${INPUT_FILE} ]
 then
     echo 'Not found' ${INPUT_FILE}
     exit 1
@@ -118,6 +117,3 @@ then
     fi
 
 fi
-
-
-
