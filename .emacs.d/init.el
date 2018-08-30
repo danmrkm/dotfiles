@@ -461,9 +461,10 @@
 	  "~/.emacs.d/my_snippets" ))
 
   ;; recentf +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  '(recentf-mode t)
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file "~/.emacs.d/.recentf")
-  (setq recentf-auto-save-timer (run-with-idle-timer 40 t 'recentf-save-file))
+  (setq recentf-auto-save-timer (run-with-idle-timer 40 t 'recentf-save-list))
   
   )
 
