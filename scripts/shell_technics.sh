@@ -79,5 +79,5 @@ nkf -c FILE
 nkf -Ws -c FILE
 
 # Windows 環境 => Unix 環境 (Shift-JIS,CRLF -> UTF-8,LF)
-nkf -Sw -d FILE
+nkf -Sw - FILE
 

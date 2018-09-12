@@ -266,24 +266,18 @@
 
     (add-hook 'php-mode-hook '(lambda ()
 				(auto-complete-mode t)
-				(require 'ac-php)
-				(setq ac-sources  '(ac-source-php ) )
+				;; (require 'ac-php)
+				;; (setq ac-sources  '(ac-source-php ) )
 				(yas-global-mode 1)
-
-				(define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-				(define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+				(setq indent-tabs-mode t)
+				;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+				;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
 				))
-
-    ;; php-modeのインデント設定
-    ;; (defun php-indent-hook ()
-    ;;   (setq indent-tabs-mode nil)
-    ;;   (setq c-basic-offset 4)
-    ;;   (c-set-offset 'arglist-intro '+) ; 配列の最初の要素が改行した場合
-    ;;   (c-set-offset 'arglist-close 0)) ; 配列の閉じ括弧
-    ;; (add-hook 'php-mode-hook 'php-indent-hook)
 
     )
 
+  
+  
   ;; python-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   (defvar python-check-command "flake8")
