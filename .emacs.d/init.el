@@ -173,7 +173,7 @@
 (when (> emacs-major-version 24)
 
   ;; GUI Emacs ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  (when (eq window-system 'ns)
+  (when (or (eq window-system 'ns) (eq window-system 'mac))
 
     ;; Macのみ有効
     (when (eq system-type 'darwin)
@@ -199,7 +199,23 @@
 	    (process-send-eof proc))))
       (setq interprogram-cut-function 'paste-to-osx)
 
+      ;; Command key等のキーバインド
+      (setq mac-command-modifier 'super)
+      (setq mac-option-modifier 'meta)
+
+      ;; Command keyでコピー等
+      (define-key global-map (kbd "s-c") (kbd "M-w"))
+      (define-key global-map (kbd "s-v") (kbd "C-y"))
+      (define-key global-map (kbd "s-x") (kbd "C-w"))
+      (define-key global-map (kbd "s-z") 'undo-only)
+      (define-key global-map (kbd "s-a") (kbd "C-x h"))
+      (define-key global-map (kbd "s-f") (kbd "C-s"))
+      (define-key global-map (kbd "s-n") (kbd "C-x 5 2"))
+      (define-key global-map (kbd "s-w") (kbd "C-x 5 0"))
+      (define-key global-map (kbd "s-s") (kbd "C-x C-s"))
+      (define-key global-map (kbd "s-t") (kbd "C-x 3"))
       )
+
     ;; ウィンドウ左に列数を表示
     (global-linum-mode t)
 
@@ -226,9 +242,9 @@
 
     ;; Paren-mode
     ;; フェイスを変更する
-    (set-face-attribute 'show-paren-match-face nil
-			:background nil :foreground nil
-			:underline "#a9a9a9")
+    ;; (set-face-attribute 'show-paren-match-face nil
+    ;; 			:background nil :foreground nil
+    ;; 			:underline "#a9a9a9")
 
     ;; ediff
     ;; ediffコントロールパネルを別フレームにしない
