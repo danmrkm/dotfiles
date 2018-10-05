@@ -68,6 +68,9 @@
 		    ;; yasnippet
 		    yasnippet
 
+		    ;; Powershell
+		    powershell
+		    
 		    ))
 
   (defvar install-package-list-ver25
