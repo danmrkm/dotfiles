@@ -345,7 +345,9 @@
     ;;   (setq web-mode-script-padding 1) ; <script>内のインデント開始レベル
     ;;   )
     ;; (add-hook 'web-mode-hook  'web-mode-hook)
-
+    (add-hook 'web-mode-hook
+              '(lambda ()
+		 (setq web-mode-enable-auto-indentation nil)))
   )
   ;; Flycheck ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
