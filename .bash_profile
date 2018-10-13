@@ -46,3 +46,5 @@ alias python='/usr/local/bin/python3'
 
 HISTSIZE=100000
 HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
+
+export PS1='macbookpro:\W \u$'

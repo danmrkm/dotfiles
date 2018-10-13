@@ -134,8 +134,8 @@
 ;; ビジュアルベルを有効化
 (setq visible-bell t)
 
-;; "C-t" でウィンドウを切り替える。
-(define-key global-map (kbd "C-z") 'other-window)
+;; "C-o" でウィンドウを切り替える。
+(define-key global-map (kbd "C-o") 'other-window)
 
 ;; "M-n" で5行下に移動する
 (define-key global-map (kbd "M-n") (kbd "C-u 5 C-n"))
