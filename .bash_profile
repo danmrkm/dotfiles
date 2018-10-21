@@ -1,8 +1,12 @@
+# Load os default bashrc
 if test -f /etc/bashrc
 then
     . /etc/bashrc
 fi
 
+####### Function section #######
+
+# function for Emacs.app
 function emacs_singlerun () {
 
     local flag=False
@@ -30,21 +34,48 @@ function emacs_singlerun () {
     fi    
 }
 
+# function for shellscript in scripts dir
+function conv_scripts_to_bin () {
 
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+    if [ -d ${HOME}/scripts ]
+    then
+	for i in `ls ${HOME}/scripts | grep ".sh"|grep -v "~"`
+	do
+	    chmod u+x ${HOME}/scripts/${i}
+	    binname=`echo ${i} |sed -e 's/\.sh//g'`
+
+	    if [ ! -e ${HOME}/bin/${binname} ]
+	    then
+		ln -s ${HOME}/scripts/${i} ${HOME}/bin/${binname}
+	    fi
+	done
+    fi
+    
+}
+
+###### Enviroment variables ######
+
+export PATH=/opt/local/bin:/opt/local/sbin:${HOME}/bin:$PATH
+export PS1='macbookpro:\W \u$ '
+export EDITOR='/usr/bin/emacs'
+
+
+###### Alias #######
 
 alias ls='ls -G'
-alias ssh-copy-id='~/scripts/ssh-copy-id'
 alias emacs='emacs_singlerun'
 alias plainpb='pbpaste|cat|pbcopy'
-#alias emacs='emacs -q -l ~/.emacs.d/init_cmd.el'
 alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'
-export EDITOR='/usr/bin/emacs'
 alias sublime='open -a Sublime\ Text'
 alias python='/usr/local/bin/python3'
+
+###### Others configuration #######
 
 HISTSIZE=100000
 HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 
-export PS1='macbookpro:\W \u$'
+###### Initial run #######
+
+conv_scripts_to_bin
+
