@@ -190,35 +190,21 @@
       (setq ns-pop-up-frames nil)
 
       ;; C-yでmacOSのクリップボードの内容を貼り付け
-      (defun copy-from-osx ()
-	(shell-command-to-string "pbpaste"))
-      (setq interprogram-paste-function 'copy-from-osx)
+      ;; (defun copy-from-osx ()
+      ;; 	(shell-command-to-string "pbpaste"))
+      ;; (setq interprogram-paste-function 'copy-from-osx)
 
-      ;; EmacsのバッファをmacOSのクリップボードにコピー
-      (defun paste-to-osx (text &optional push)
-	(let ((process-connection-type nil))
-	  (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-	    (process-send-string proc text)
-	    (process-send-eof proc))))
-      (setq interprogram-cut-function 'paste-to-osx)
+      ;; ;; EmacsのバッファをmacOSのクリップボードにコピー
+      ;; (defun paste-to-osx (text &optional push)
+      ;; 	(let ((process-connection-type nil))
+      ;; 	  (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      ;; 	    (process-send-string proc text)
+      ;; 	    (process-send-eof proc))))
+      ;; (setq interprogram-cut-function 'paste-to-osx)
+      
+      (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-      ;; Command key等のキーバインド
-      (setq mac-command-modifier 'super)
-      (setq mac-option-modifier 'meta)
-
-      ;; Command keyでコピー等
-      (define-key global-map (kbd "s-c") (kbd "M-w"))
-      (define-key global-map (kbd "s-v") (kbd "C-y"))
-      (define-key global-map (kbd "s-x") (kbd "C-w"))
-      (define-key global-map (kbd "s-z") 'undo-only)
-      (define-key global-map (kbd "s-a") (kbd "C-x h"))
-      (define-key global-map (kbd "s-f") (kbd "C-s"))
-      (define-key global-map (kbd "s-n") (kbd "C-x 5 2"))
-      (define-key global-map (kbd "s-w") (kbd "C-x 5 0"))
-      (define-key global-map (kbd "s-s") (kbd "C-x C-s"))
-      (define-key global-map (kbd "s-t") (kbd "C-x 3"))
       )
-
     ;; ウィンドウ左に列数を表示
     (global-linum-mode t)
 
