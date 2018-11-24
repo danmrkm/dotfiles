@@ -19,12 +19,14 @@
   (require 'package)
 
   ;;melpa stableを追加
-   (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
   ;; (add-to-list 'package-archives (cons "melpa-stable" "https://stable.melpa.org/packages/") t)
 
-  ;;パッケージを初期化
-  (package-initialize)
-
+  ;;バージョンが27以下であれば、パッケージをイニシャライズ
+  (when (< emacs-major-version 27)
+    (package-initialize)
+    )
+  
   ;; インストールするパッケージ
   (defvar install-package-list
     '(
@@ -462,7 +464,7 @@
 	  "~/.emacs.d/my_snippets" ))
 
   ;; recentf +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  (recentf-mode t)
+  ;; (recentf-mode t)
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file "~/.emacs.d/.recentf")
   (setq recentf-auto-save-timer (run-with-idle-timer 40 t 'recentf-save-list))
