@@ -3,7 +3,7 @@
 # GitHub settings
 UNAME='danmrkm'
 EMAIL='38092962+danmrkm@users.noreply.github.com'
-EDITOR='emacs'
+EDITOR='/usr/bin/emacs'
 
 #Check gpg
 if [ ! -e /usr/local/bin/gpg ]
