@@ -26,7 +26,7 @@
   (when (< emacs-major-version 27)
     (package-initialize)
     )
-  
+
   ;; インストールするパッケージ
   (defvar install-package-list
     '(
@@ -72,7 +72,7 @@
 
 		    ;; Powershell
 		    powershell
-		    
+
 		    ))
 
   (defvar install-package-list-ver25
@@ -162,6 +162,11 @@
 ;; 環境変数設定
 (add-to-list 'exec-path "/usr/local/bin")
 
+;; 保存時に行末のスペースを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; load-path に ~/.emacs.d/lisp を追加
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Eshell ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -203,7 +208,7 @@
       ;; 	    (process-send-string proc text)
       ;; 	    (process-send-eof proc))))
       ;; (setq interprogram-cut-function 'paste-to-osx)
-      
+
       (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
       )
@@ -283,8 +288,8 @@
 
     )
 
-  
-  
+
+
   ;; python-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   (defvar python-check-command "flake8")
@@ -454,7 +459,7 @@
 		      :foreground "white20"
 		      :underline nil)
   ))
-  
+
   ;; yasnippet +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ;; スニペット名をidoで選択する
   (setq yas-prompt-functions '(yas-ido-prompt))
@@ -464,11 +469,14 @@
 	  "~/.emacs.d/my_snippets" ))
 
   ;; recentf +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  ;; (recentf-mode t)
+  '(recentf-mode t)
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file "~/.emacs.d/.recentf")
   (setq recentf-auto-save-timer (run-with-idle-timer 40 t 'recentf-save-list))
-  
+
+  ;; cisco-router-mode  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  (require 'cisco-router-mode)
+
   )
 
 ;;; init.el ends here
