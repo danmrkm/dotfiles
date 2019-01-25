@@ -430,6 +430,10 @@
     (global-set-key (kbd "M-s") 'helm-gtags-find-symbol)
     (global-set-key (kbd "C-t") 'helm-gtags-pop-stack))
 
+  ;; magit +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  (when (package-installed-p 'magit)
+    (global-set-key (kbd "C-x g") 'magit-status)
+    )
 
   ;; whitespace-mode +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (setq whitespace-style '(face           ; faceで可視化
@@ -476,6 +480,9 @@
 
   ;; cisco-router-mode  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (require 'cisco-router-mode)
+
+  ;; visual-basic-mode  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  (require 'visual-basic-mode)
 
   )
 
