@@ -12,8 +12,8 @@ function emacs_singlerun () {
     local flag=False
 
     if [ `ps -u $USER |grep Emacs.app/Contents/MacOS/Emacs|grep -v grep|wc -l` -gt 0 ]
-    then       
-	if [ $# -lt 3 ] && [ "`echo $1 |cut -c 1`" != "-" ] 
+    then
+	if [ $# -lt 3 ] && [ "`echo $1 |cut -c 1`" != "-" ]
 	then
 	    if [ "$2" = '&' ] || [ "$2" = '' ]
 	    then
@@ -21,7 +21,7 @@ function emacs_singlerun () {
 		then
 		    touch $1
 		fi
-		
+
 		open -a Emacs.app $1
 		flag=True
 	    fi
@@ -31,7 +31,7 @@ function emacs_singlerun () {
     if [ $flag != True ]
     then
 	/Applications/Emacs.app/Contents/MacOS/Emacs $*
-    fi    
+    fi
 }
 
 # function for shellscript in scripts dir
@@ -50,13 +50,13 @@ function conv_scripts_to_bin () {
 	    fi
 	done
     fi
-    
+
 }
 
 ###### Enviroment variables ######
 
 export PATH=/opt/local/bin:/opt/local/sbin:${HOME}/bin:$PATH
-export PS1='macbookpro:\W \u$ '
+#export PS1='macbookpro:\W \u$ '
 export EDITOR='/usr/bin/emacs'
 
 
@@ -69,6 +69,9 @@ alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'
 alias sublime='open -a Sublime\ Text'
 alias python='/usr/local/bin/python3'
+alias proxyon='networksetup -setwebproxystate Ethernet on;networksetup -setsecurewebproxystate Ethernet on;'
+alias proxyoff='networksetup -setwebproxystate Ethernet off;networksetup -setsecurewebproxystate Ethernet off'
+
 
 ###### Others configuration #######
 
@@ -78,4 +81,3 @@ HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 ###### Initial run #######
 
 conv_scripts_to_bin
-
