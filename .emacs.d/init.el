@@ -117,6 +117,13 @@
 
 ;; Global setting  ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+;; バッファ再読み込み
+(defun revert-buffer-no-confirm (&optional force-reverting)
+  (interactive "P")
+  (if (or force-reverting (not (buffer-modified-p)))
+      (revert-buffer :ignore-auto :noconfirm)
+    (error "The buffer has been modified")))
+
 ;;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
@@ -151,6 +158,9 @@
 ;; "C-c w" で whitespace-mode
 (define-key global-map (kbd "C-c w") 'whitespace-mode)
 
+;; "C-x r" でバッファ再読み込み
+(define-key global-map (kbd "C-x r") 'revert-buffer-no-confirm)
+
 ;; paren-mode：対応する括弧を強調して表示する
 ;; 表示までの秒数。初期値は0.125
 (setq show-paren-delay 0.02)
@@ -167,6 +177,9 @@
 
 ;; load-path に ~/.emacs.d/lisp を追加
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+
+
+
 
 ;; Eshell ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
