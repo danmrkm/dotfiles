@@ -1,4 +1,4 @@
-;;; init.el --- GNU Emacs configuration file
+;;; init.el - -- GNU Emacs configuration file
 
 ;; Copyright (C) 2018 by DM
 
@@ -314,10 +314,19 @@
   ;; $ pip3 install virtualenv
 
   ;; 初回実行時に M-x jedi:install-server を実行すること
+  ;; エラーが発生する場合、以下コマンドを実行し、pyton-enviromnments ディレクトリを削除する
+  ;; ~/.emacs.d/.python-environments/ を削除する
   (when (package-installed-p 'jedi)
     (add-hook 'python-mode-hook 'jedi:setup)
     (setq jedi:complete-on-dot t)
     )
+
+  ;; Python-mode の場合、保存の際に py-autopep8 を実行する
+  ;; 事前に autopep8 をインストールしておくこと
+  ;; $ pip3 install autopep8
+  (add-hook 'python-mode-hook
+            '(lambda ()
+	       (add-hook 'before-save-hook 'py-autopep8 'make-it-local)))
 
   ;; auto-complete ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (when (package-installed-p 'auto-complete)
