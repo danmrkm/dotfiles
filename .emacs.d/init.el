@@ -33,53 +33,53 @@
       ;; for auto-complete
       auto-complete fuzzy popup
 
-		    ;; csv mode
-		    csv-mode
+      ;; csv mode
+      csv-mode
 
-		    ;; buffer utils
-		    popwin elscreen
+      ;; buffer utils
+      popwin elscreen
 
-		    ;; flycheck
-		    flycheck
+      ;; flycheck
+      flycheck
 
-		    ;; python
-		    jedi py-autopep8
+      ;; python
+      jedi py-autopep8
 
-		    ;; php
-		    php-mode ac-php
+      ;; php
+      php-mode ac-php
 
-		    ;; helm
-		    helm helm-gtags
+      ;; helm
+      helm helm-gtags
 
-		    ;; quickrun
-		    quickrun
+      ;; quickrun
+      quickrun
 
-		    ;; web
-		    web-mode
+      ;; web
+      web-mode
 
 
-		    ;; multi-term
-		    multi-term
+      ;; multi-term
+      multi-term
 
-		    ;; madhat2r
-		    madhat2r-theme
+      ;; madhat2r
+      madhat2r-theme
 
-		    ;; markdown-mode
-		    markdown-mode
+      ;; markdown-mode
+      markdown-mode
 
-		    ;; yasnippet
-		    yasnippet
+      ;; yasnippet
+      yasnippet
 
-		    ;; Powershell
-		    powershell
+      ;; Powershell
+      powershell
 
-		    ))
+      ))
 
   (defvar install-package-list-ver25
     '(
       ;; git (ver25以上のみインストール)
       magit git-gutter
-	    ))
+      ))
 
 
   ;; パッケージ情報更新フラグ設定
@@ -178,19 +178,22 @@
 ;; load-path に ~/.emacs.d/lisp を追加
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-
-
+;; PATH の設定
+(let ((shellpaths (split-string (shell-command-to-string "env | grep '^PATH=' | sed 's/PATH=//; s/:/ /g'"))))
+  (dolist (path shellpaths)
+    (add-to-list 'exec-path path)))
 
 ;; Eshell ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ;; alias を設定
 (defvar eshell-command-aliases-list
-      (append
-       (list
-	(list "emacs" "find-file $1")
-	)
-       )
-      )
+  (append
+   (list
+    (list "emacs" "find-file $1")
+    )
+   )
+  )
+
 
 ;; Emacsのバージョンが24以上の場合に有効化
 (when (> emacs-major-version 24)
@@ -305,7 +308,12 @@
 
   ;; python-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  (defvar python-check-command "flake8")
+  ;; (defvar python-check-command "flake8")
+  ;; Python-mode の場合、保存の際に py-autopep8 を実行する
+  ;; 事前に autopep8 をインストールしておくこと
+  ;; $ pip3 install autopep8
+  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  (add-hook 'python-mode-hook 'flycheck-mode)
 
   ;; jedi ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -321,12 +329,6 @@
     (setq jedi:complete-on-dot t)
     )
 
-  ;; Python-mode の場合、保存の際に py-autopep8 を実行する
-  ;; 事前に autopep8 をインストールしておくこと
-  ;; $ pip3 install autopep8
-  (add-hook 'python-mode-hook
-            '(lambda ()
-	       (add-hook 'before-save-hook 'py-autopep8 'make-it-local)))
 
   ;; auto-complete ++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (when (package-installed-p 'auto-complete)
@@ -363,7 +365,7 @@
     (add-hook 'web-mode-hook
               '(lambda ()
 		 (setq web-mode-enable-auto-indentation nil)))
-  )
+    )
   ;; Flycheck ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   (when (package-installed-p 'flycheck)
@@ -474,17 +476,17 @@
   ;; (setq whitespace-space-regexp "\\(\u3000+\\)")
   (eval-after-load "whitespace"
     '(progn
-  (set-face-attribute 'whitespace-trailing nil
-		      :background "Yellow50"
-		      :underline nil)
-  (set-face-attribute 'whitespace-tab nil
-		      :background "gray30"
-		      :underline nil)
-  (set-face-attribute 'whitespace-space nil
-		      :background "gray20"
-		      :foreground "white20"
-		      :underline nil)
-  ))
+       (set-face-attribute 'whitespace-trailing nil
+			   :background "Yellow50"
+			   :underline nil)
+       (set-face-attribute 'whitespace-tab nil
+			   :background "gray30"
+			   :underline nil)
+       (set-face-attribute 'whitespace-space nil
+			   :background "gray20"
+			   :foreground "white20"
+			   :underline nil)
+       ))
 
   ;; yasnippet +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ;; スニペット名をidoで選択する
@@ -495,10 +497,20 @@
 	  "~/.emacs.d/my_snippets" ))
 
   ;; recentf +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  '(recentf-mode t)
-  (setq recentf-auto-cleanup 'never)
+  (setq recentf-max-saved-items 2000)
+  ;; (setq recentf-auto-cleanup 10)
   (setq recentf-save-file "~/.emacs.d/.recentf")
-  (setq recentf-auto-save-timer (run-with-idle-timer 40 t 'recentf-save-list))
+  (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
+  (recentf-mode 1)
+
+  ;; tramp +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  (defun tramp-set-auto-save ()
+    (auto-save-mode -1))
+
+  ;; JSON +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  (defun runjq (beg end)
+    (interactive "r")
+    (shell-command-on-region beg end "/usr/local/bin/jq ." nil t))
 
   ;; cisco-router-mode  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (require 'cisco-router-mode)
