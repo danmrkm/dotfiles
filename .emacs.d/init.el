@@ -57,6 +57,8 @@
       ;; web
       web-mode
 
+      ;; Swift
+      swift-mode flycheck-swift
 
       ;; multi-term
       multi-term
