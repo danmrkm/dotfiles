@@ -19,9 +19,18 @@ function emacs_singlerun () {
 	    then
 		if test ! -e $1
 		then
-		    touch $1
+		    echo "$1 is not found. Do you want to create a new file? [y/n]"
+		    read answer
+		    case "$answer" in
+			y)
+			    touch $1
+			    ;;
+			*)
+			    echo 'Cancelled'
+			    return 1
+			    ;;
+		    esac
 		fi
-
 		open -a Emacs.app $1
 		flag=True
 	    fi

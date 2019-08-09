@@ -522,4 +522,15 @@
 
   )
 
+ ;;; Markdown Mode
+(add-hook 'markdown-mode-hook
+          '(lambda ()
+             ;; "M-n" で5行下に移動する
+             (define-key markdown-mode-map (kbd "M-n") (kbd "C-u 5 C-n"))
+
+             ;; "M-p" で5行上に移動する
+             (define-key markdown-mode-map (kbd "M-p") (kbd "C-u 5 C-p"))
+
+             ))
+
 ;;; init.el ends here
