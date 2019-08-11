@@ -60,6 +60,9 @@
       ;; Swift
       swift-mode flycheck-swift
 
+      ;; Go
+      go-mode
+
       ;; multi-term
       multi-term
 
