@@ -62,6 +62,70 @@ function conv_scripts_to_bin () {
 
 }
 
+# SSH hook for changing tmux window
+function ssh_tmux() {
+    this_window_name=`tmux display-message -p '#W'`
+    ssh_host=`echo $@ | perl -ple 's/(^|\s)-[^\s] *[^\s]+//g' | cut -d" " -f2`
+    logdir=${HOME}/.tmuxlog/${ssh_host}/`date +%Y%m%d`
+    nowtime=`date +%H%M%S`
+
+    # Load ssh host's tmux window name
+    if [ -e ~/.ssh/tmux_config ]
+    then
+	load_window_name=`cat ~/.ssh/tmux_config | grep -v "#" | grep -E "^${ssh_host}\t" |cut -f 2`
+	if [ ${load_window_name} ]
+	then
+	    window_name=${load_window_name}
+	else
+	    window_name=${this_window_name}
+	fi
+    else
+	window_name=${this_window_name}
+    fi
+
+    # Check window_name is exsited
+    result=`tmux list-window | grep " ${window_name}" | wc -l`
+    if [ ${result} -ne 0 ]
+    then
+	pane_count=`tmux list-window | grep " ${window_name}" | head -1 | cut -d "(" -f 2 |cut -d " " -f 1`
+	pane_number=`expr ${pane_count} - 1`
+	new_pane_number=${pane_count}
+    else
+	# Create window
+	tmux new-window -n ${window_name}
+	pane_count=0
+	pane_number=0
+	new_pane_number=${pane_number}
+    fi
+
+
+    if [ ${pane_count} -ne 0 ]
+    then
+	if [ -z "${TMUXLOG}" ] || [ ! ${this_window_name} = ${window_name} ]
+	then
+            tmux  set-option default-terminal "screen" \; \
+		  split-window -v -t "${window_name}.${pane_number}" \; \
+		  select-layout even-vertical \; \
+		  send-keys -t "${window_name}.${new_pane_number}" "TMUXLOG=1" C-m  \; \
+		  send-keys -t "${window_name}.${new_pane_number}" "ssh $@" C-m     \; \
+		  run-shell        "if [ ! -d ${logdir} ];then  mkdir -p ${logdir};fi" \; \
+		  pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
+		  display-message  "Started logging to ${logdir}/${nowtime}.log)"
+	else
+            ssh $@
+	fi
+    else
+        tmux  set-option default-terminal "screen" \; \
+	      select-layout even-vertical \; \
+	      send-keys -t "${window_name}.${new_pane_number}" "TMUXLOG=1" C-m  \; \
+	      send-keys -t "${window_name}.${new_pane_number}" "ssh $@" C-m     \; \
+	      run-shell        "if [ ! -d ${logdir} ];then  mkdir -p ${logdir};fi" \; \
+	      pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
+	      display-message  "Started logging to ${logdir}/${nowtime}.log)"
+    fi
+}
+
+
 ###### Enviroment variables ######
 
 export PATH=/opt/local/bin:/opt/local/sbin:${HOME}/bin:$PATH
@@ -81,6 +145,10 @@ alias python='/usr/local/bin/python3'
 alias proxyon='networksetup -setwebproxystate Ethernet on;networksetup -setsecurewebproxystate Ethernet on;'
 alias proxyoff='networksetup -setwebproxystate Ethernet off;networksetup -setsecurewebproxystate Ethernet off'
 
+if [[ ${TERM} = screen ]] || [[ ${TERM} = screen-256color ]]
+then
+    alias ssh=ssh_tmux
+fi
 
 ###### Others configuration #######
 
