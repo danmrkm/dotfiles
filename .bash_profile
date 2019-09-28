@@ -72,7 +72,7 @@ function ssh_tmux() {
     # Load ssh host's tmux window name
     if [ -e ~/.ssh/tmux_config ]
     then
-	load_window_name=`cat ~/.ssh/tmux_config | grep -v "#" | grep -E "^${ssh_host}\t" |cut -f 2`
+	load_window_name=`cat ~/.ssh/tmux_config | grep -v "#" | grep -E "^${ssh_host}\t" |awk '{print $2}'`
 	if [ ${load_window_name} ]
 	then
 	    window_name=${load_window_name}
