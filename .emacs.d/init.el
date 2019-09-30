@@ -75,6 +75,9 @@
       ;; Powershell
       powershell
 
+      ;; Dockerfile
+      dockerfile-mode
+
       ))
 
   (defvar install-package-list-ver25
