@@ -78,6 +78,9 @@
       ;; Dockerfile
       dockerfile-mode
 
+      ;; YAML
+      yaml-mode
+
       ))
 
   (defvar install-package-list-ver25
@@ -231,6 +234,8 @@
       ;; (setq interprogram-cut-function 'paste-to-osx)
 
       (add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+      (server-start)
 
       )
     ;; ウィンドウ左に列数を表示
