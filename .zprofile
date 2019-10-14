@@ -33,7 +33,7 @@ function emacs_singlerun () {
 			    ;;
 		    esac
 		fi
-		emacsclient -n $1
+		/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $1
 		flag=True
 	    fi
 	fi
@@ -116,7 +116,7 @@ function ssh_tmux() {
 		  pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
 		  display-message  "Started logging to ${logdir}/${nowtime}.log)"
 	else
-            ssh $@
+            /usr/bin/ssh $@
 	fi
     else
         tmux  set-option default-terminal "screen" \; \
