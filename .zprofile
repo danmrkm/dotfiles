@@ -13,27 +13,29 @@ function emacs_singlerun () {
 
     local flag=False
 
+    if [ ! -e $1 ]
+    then
+	echo "$1 is not found. Do you want to create a new file? [y/n]"
+	read answer
+	case "$answer" in
+	    y)
+		touch $1
+		;;
+	    *)
+		echo 'Cancelled'
+		return 1
+		;;
+	esac
+    fi
+
     if [ `ps -u $USER |grep Emacs.app/Contents/MacOS/Emacs|grep -v grep|wc -l` -gt 0 ]
     then
 	if [ $# -lt 3 ] && [ "`echo $1 |cut -c 1`" != "-" ]
 	then
 	    if [ "$2" = '&' ] || [ "$2" = '' ]
 	    then
-		if test ! -e $1
-		then
-		    echo "$1 is not found. Do you want to create a new file? [y/n]"
-		    read answer
-		    case "$answer" in
-			y)
-			    touch $1
-			    ;;
-			*)
-			    echo 'Cancelled'
-			    return 1
-			    ;;
-		    esac
-		fi
-		emacsclient -n $1
+
+		/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $1
 		flag=True
 	    fi
 	fi
@@ -116,7 +118,7 @@ function ssh_tmux() {
 		  pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
 		  display-message  "Started logging to ${logdir}/${nowtime}.log)"
 	else
-            ssh $@
+            /usr/bin/ssh $@
 	fi
     else
         tmux  set-option default-terminal "screen" \; \
