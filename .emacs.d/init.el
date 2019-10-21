@@ -235,7 +235,10 @@
 
       (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-      (server-start)
+      ;; サーバーモードで起動している Emacs がない場合はサーバを立ち上げる
+      (when '(not '(server-running-p))
+	(server-start)
+	)
 
       )
     ;; ウィンドウ左に列数を表示

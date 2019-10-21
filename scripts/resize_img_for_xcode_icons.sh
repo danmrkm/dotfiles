@@ -4,7 +4,7 @@ FILENAME_ORG="icon"
 EXT=".png"
 orgfile=$1
 
-for i in `echo 512 256 128 64 32`
+for i in `echo 512 256 128 64 32 16`
 do
     doublesize=`expr ${i} \* 2`
     sips -Z ${doublesize} ${orgfile} -o ${FILENAME_ORG}"_"${i}"x"${i}"@2x"${EXT}
