@@ -3,7 +3,7 @@
 # GitHub settings
 UNAME='danmrkm'
 EMAIL='38092962+danmrkm@users.noreply.github.com'
-EDITOR='/usr/bin/emacs'
+EDITOR='/usr/local/bin/emacs'
 
 #Check gpg
 if [ ! -e /usr/local/bin/gpg ]
@@ -49,8 +49,6 @@ git config --local gpg.program /usr/local/bin/gpg
 git config --local user.signingkey ${GPGSIG}
 git config --local commit.gpgsign true
 git config --local alias.graph "log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short"
-
+git config --local push.default current
 echo '### Show result local config list. ###'
 git config --local -l
-
-
