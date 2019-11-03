@@ -135,7 +135,7 @@ function ssh_tmux() {
 
 export PATH=/opt/local/bin:/opt/local/sbin:${HOME}/bin:$PATH
 #export PS1='macbookpro:%~ \u$ '
-PROMPT='macbookpro:%c %n$ '
+PROMPT='mac:%c %n$ '
 #export EDITOR='/usr/bin/emacs'
 export EDITOR='/usr/local/bin/emacs'
 export PATH="/usr/local/opt/texinfo/bin:$PATH"
@@ -149,6 +149,8 @@ alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'
 alias sublime='open -a Sublime\ Text'
 alias python='/usr/local/bin/python3'
+alias proxyon='networksetup -setwebproxystate Ethernet on;networksetup -setsecurewebproxystate Ethernet on;'
+alias proxyoff='networksetup -setwebproxystate Ethernet off;networksetup -setsecurewebproxystate Ethernet off'
 
 
 if [[ ${TERM} = screen ]] || [[ ${TERM} = screen-256color ]]
@@ -160,5 +162,8 @@ conv_scripts_to_bin
 
 ###### Others configuration #######
 
-HISTSIZE=100000
-HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
+setopt hist_ignore_dups
+setopt extended_history
