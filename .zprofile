@@ -138,7 +138,6 @@ export PATH=/opt/local/bin:/opt/local/sbin:${HOME}/bin:$PATH
 PROMPT='mac:%c %n$ '
 #export EDITOR='/usr/bin/emacs'
 export EDITOR='/usr/local/bin/emacs'
-export PATH="/usr/local/opt/texinfo/bin:$PATH"
 
 ###### Alias #######
 
