@@ -110,6 +110,7 @@ function ssh_tmux() {
 	if [ -z "${TMUXLOG}" ] || [ ! ${this_window_name} = ${window_name} ]
 	then
             tmux  set-option default-terminal "screen" \; \
+		  select-window -t "${window_name}" \; \
 		  split-window -v -t "${window_name}.${pane_number}" \; \
 		  select-layout even-vertical \; \
 		  send-keys -t "${window_name}.${new_pane_number}" "TMUXLOG=1" C-m  \; \
