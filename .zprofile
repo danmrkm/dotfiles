@@ -167,3 +167,4 @@ export SAVEHIST=100000
 export HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 setopt hist_ignore_dups
 setopt extended_history
+setopt nonomatch
