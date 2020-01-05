@@ -84,6 +84,9 @@
       ;; YAML
       yaml-mode
 
+      ;; Highlight-indentation
+      highlight-indentation
+
       ))
 
   (defvar install-package-list-ver25
@@ -293,6 +296,7 @@
     ;; Emacs終了時に本当に終了してよいか確認する
     (setq confirm-kill-emacs 'y-or-n-p)
 
+
     )
 
   ;; php-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -330,6 +334,9 @@
   ;; $ pip3 install autopep8
   (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
   (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'highlight-indentation-mode)
+  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
+
 
   ;; jedi ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -382,6 +389,7 @@
               '(lambda ()
 		 (setq web-mode-enable-auto-indentation nil)))
     )
+
   ;; Flycheck ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   (when (package-installed-p 'flycheck)
@@ -390,6 +398,15 @@
 
     )
 
+  ;; YAML-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  (when (package-installed-p 'yaml-mode)
+
+    ;; highlight-indentation
+    (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
+    (add-hook 'yaml-mode-hook 'highlight-indentation-current-column-mode)
+
+    )
   ;; quickrun ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   (when (package-installed-p 'quickrun)
@@ -512,6 +529,15 @@
 	'("~/.emacs.d/snippets"
 	  "~/.emacs.d/my_snippets" ))
 
+  ;; Highlight Indentation +++++++++++++++++++++++++++++++++++++++++++++++++
+  (when (package-installed-p 'highlight-indentation)
+
+    (require 'highlight-indentation)
+    ;; Highlight Indentation
+    (set-face-background 'highlight-indentation-face "#202020")
+    (set-face-background 'highlight-indentation-current-column-face "#373d3f")
+
+  )
   ;; recentf +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (setq recentf-max-saved-items 2000)
   ;; (setq recentf-auto-cleanup 10)
@@ -533,6 +559,7 @@
 
   ;; visual-basic-mode  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   (require 'visual-basic-mode)
+
 
   )
 
