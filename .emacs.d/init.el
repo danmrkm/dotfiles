@@ -43,7 +43,7 @@
       flycheck
 
       ;; python
-      jedi py-autopep8
+      jedi py-autopep8 blacken
 
       ;; php
       php-mode ac-php
@@ -336,6 +336,8 @@
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook 'highlight-indentation-mode)
   (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
+  (add-hook 'python-mode-hook 'blacken-mode)
+  (setq flycheck-python-flake8-executable "python3")
 
 
   ;; jedi ++++++++++++++++++++++++++++++++++++++++++++++++++++++
