@@ -43,7 +43,7 @@
       flycheck
 
       ;; python
-      jedi py-autopep8 blacken
+      jedi py-autopep8 blacken django-mode
 
       ;; php
       php-mode ac-php
@@ -530,6 +530,8 @@
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets"
 	  "~/.emacs.d/my_snippets" ))
+  ;; Yasnippet mode の有効化
+  (yas-global-mode 1)
 
   ;; Highlight Indentation +++++++++++++++++++++++++++++++++++++++++++++++++
   (when (package-installed-p 'highlight-indentation)
