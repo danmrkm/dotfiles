@@ -87,6 +87,8 @@
       ;; Highlight-indentation
       highlight-indentation
 
+      ;; apache-mode
+      apache-mode
       ))
 
   (defvar install-package-list-ver25
