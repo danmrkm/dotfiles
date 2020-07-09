@@ -339,8 +339,10 @@
   (add-hook 'python-mode-hook 'highlight-indentation-mode)
   (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode)
   (add-hook 'python-mode-hook 'blacken-mode)
-  (setq flycheck-python-flake8-executable "python3")
-
+  (custom-set-variables
+   '(flycheck-python-flake8-executable "python3")
+   '(flycheck-python-pycompile-executable "python3")
+   '(flycheck-python-pylint-executable "python3"))
 
   ;; jedi ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
