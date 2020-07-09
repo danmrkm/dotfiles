@@ -73,7 +73,7 @@
       markdown-mode
 
       ;; yasnippet
-      yasnippet django-yasnippet
+      yasnippet django-snippets
 
       ;; Powershell
       powershell
