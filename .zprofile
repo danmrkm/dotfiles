@@ -104,7 +104,7 @@ function ssh_tmux() {
 	new_pane_number=${pane_number}
     fi
 
-    echo "${window_name}"
+    # echo "${window_name}"
     if [ ${pane_count} -ne 0 ]
     then
 	if [ -z "${TMUXLOG}" ] || [ ! ${this_window_name} = ${window_name} ]
@@ -114,18 +114,18 @@ function ssh_tmux() {
 		  split-window -v -t "${window_name}.${pane_number}" \; \
 		  select-layout even-vertical \; \
 		  send-keys -t "${window_name}.${new_pane_number}" "TMUXLOG=1" C-m  \; \
-		  send-keys -t "${window_name}.${new_pane_number}" "ssh $@" C-m     \; \
+		  send-keys -t "${window_name}.${new_pane_number}" "ssh $*" C-m     \; \
 		  run-shell        "if [ ! -d ${logdir} ];then  mkdir -p ${logdir};fi" \; \
 		  pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
 		  display-message  "Started logging to ${logdir}/${nowtime}.log)"
 	else
-            /usr/bin/ssh $@
+            /usr/bin/ssh $*
 	fi
     else
         tmux  set-option default-terminal "screen" \; \
 	      select-layout even-vertical \; \
 	      send-keys -t "${window_name}.${new_pane_number}" "TMUXLOG=1" C-m  \; \
-	      send-keys -t "${window_name}.${new_pane_number}" "ssh $@" C-m     \; \
+	      send-keys -t "${window_name}.${new_pane_number}" "ssh $*" C-m     \; \
 	      run-shell        "if [ ! -d ${logdir} ];then  mkdir -p ${logdir};fi" \; \
 	      pipe-pane        "cat >> ${logdir}/${nowtime}.log" \; \
 	      display-message  "Started logging to ${logdir}/${nowtime}.log)"
@@ -148,7 +148,7 @@ alias plainpb='pbpaste|cat|pbcopy'
 alias emasc='emacs'
 alias synccb='bash ~/scripts/synccb.sh'
 alias sublime='open -a Sublime\ Text'
-alias python='/usr/local/bin/python3'
+# alias python='/usr/local/bin/python3'
 alias proxyon='networksetup -setwebproxystate Ethernet on;networksetup -setsecurewebproxystate Ethernet on;'
 alias proxyoff='networksetup -setwebproxystate Ethernet off;networksetup -setsecurewebproxystate Ethernet off'
 
@@ -167,4 +167,3 @@ export SAVEHIST=100000
 export HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 setopt hist_ignore_dups
 setopt extended_history
-setopt nonomatch
