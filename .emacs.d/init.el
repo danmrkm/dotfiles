@@ -54,6 +54,9 @@
       ;; quickrun
       quickrun
 
+      ;; Javascript
+      js-auto-format-mode
+
       ;; web
       web-mode
 
@@ -89,6 +92,9 @@
 
       ;; apache-mode
       apache-mode
+
+      ;; groovy-mode
+      groovy-mode
       ))
 
   (defvar install-package-list-ver25
@@ -402,6 +408,13 @@
     ;; Flycheck-modeを常時有効化
     (add-hook 'after-init-hook #'global-flycheck-mode)
 
+    )
+
+  ;; Javascript ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  (when (package-installed-p 'js-auto-format-mode)
+    ;; js-auto-format-modeを常時有効化
+    (add-hook 'js-mode-hook #'js-auto-format-mode)
     )
 
   ;; YAML-mode ++++++++++++++++++++++++++++++++++++++++++++++++++++++
